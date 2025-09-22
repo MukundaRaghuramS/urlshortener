@@ -1,8 +1,10 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import Profile from './Pages/profile/profile';  
+import UrlShortener from './Pages/urlshortener/urlshortener';
+import MyUrls from './Pages/MyUrls/MyUrls';
 import './index.css';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import { HeaderMegaMenu } from './Components/Navbar/HeaderMegaMenu';
@@ -16,10 +18,12 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} /> 
+          <Route path='/urlshortener' element={<UrlShortener />} />
+           <Route path='/MyUrls' element={<MyUrls />} /> 
         </Route>
       </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;

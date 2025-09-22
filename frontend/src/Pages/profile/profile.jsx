@@ -8,24 +8,28 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    let savedUserId = localStorage.getItem("userId");
+    const userEmail = user?.email || "guest@example.com"; // fallback email
+    const userKey = `userId_${userEmail}`; // unique key per user
+    const createdKey = `createdAt_${userEmail}`;
+
+    let savedUserId = localStorage.getItem(userKey);
     if (!savedUserId) {
       savedUserId = Array.from({ length: 24 }, () =>
         Math.floor(Math.random() * 16).toString(16)
       ).join("");
-      localStorage.setItem("userId", savedUserId);
+      localStorage.setItem(userKey, savedUserId);
     }
 
-    let savedCreatedAt = localStorage.getItem("createdAt");
+    let savedCreatedAt = localStorage.getItem(createdKey);
     if (!savedCreatedAt) {
       savedCreatedAt = new Date().toLocaleString();
-      localStorage.setItem("createdAt", savedCreatedAt);
+      localStorage.setItem(createdKey, savedCreatedAt);
     }
 
     const fallbackUser = {
       name: "Mukunda Raghuram",
       email: "2210080019@klh.edu.in",
-      avatar: "/default-avatar.png", 
+      avatar: "/default-avatar.png",
       userId: savedUserId,
       createdAt: savedCreatedAt,
     };
@@ -61,7 +65,7 @@ export default function ProfilePage() {
           padding="xl"
           radius="lg"
           style={{
-            backgroundColor: "#fff", 
+            backgroundColor: "#fff",
             border: "1px solid rgba(0, 0, 0, 0.1)",
             maxWidth: 500,
             width: "90%",
@@ -70,7 +74,6 @@ export default function ProfilePage() {
           }}
         >
           <Stack align="center" spacing="md">
-            
             <Avatar
               src={profile.avatar}
               size={120}
